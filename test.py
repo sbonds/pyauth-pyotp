@@ -1,5 +1,7 @@
 from __future__ import with_statement
+import base64
 import datetime
+import hashlib
 import os
 import sys
 import unittest
@@ -47,11 +49,43 @@ class HOTPExampleValuesFromTheRFC(unittest.TestCase):
 
 
 class TOTPExampleValuesFromTheRFC(unittest.TestCase):
+    RFC_VALUES = {
+        (hashlib.sha1, "12345678901234567890"): (
+            (59, 94287082),
+            (1111111109,  7081804),
+            (1111111111, 14050471),
+            (1234567890, 89005924),
+            (2000000000, 69279037),
+            (20000000000, 65353130),
+        ),
+
+        (hashlib.sha256, "12345678901234567890123456789012"): (
+            (59, 46119246),
+            (1111111109, 68084774),
+            (1111111111, 67062674),
+            (1234567890, 91819424),
+            (2000000000, 90698825),
+            (20000000000, 77737706),
+        ),
+
+        (hashlib.sha512, "1234567890123456789012345678901234567890123456789012345678901234"): (
+            (59, 90693936),
+            (1111111109, 25091201),
+            (1111111111, 99943326),
+            (1234567890, 93441116),
+            (2000000000, 38618901),
+            (20000000000, 47863826),
+        ),
+    }
+
     def testMatchTheRFC(self):
-        totp = pyotp.TOTP('GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ')
-        self.assertEqual(totp.at(1111111111), 50471)
-        self.assertEqual(totp.at(1234567890), 5924)
-        self.assertEqual(totp.at(2000000000), 279037)
+        for digest, secret in self.RFC_VALUES:
+            totp = pyotp.TOTP(base64.b32encode(secret), 8, digest)
+            for utime, code in self.RFC_VALUES[(digest, secret)]:
+                value = totp.at(utime)
+                msg = "%d != %d (%s, time=%d)"
+                msg %= (value, code, digest().name, utime)
+                self.assertEqual(value, code, msg)
 
     def testMatchTheGoogleAuthenticatorOutput(self):
         totp = pyotp.TOTP('wrn3pqx5uqxqvnqr')
