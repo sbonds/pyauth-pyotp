@@ -31,7 +31,7 @@ class OTP(object):
             self.digest,
         ).digest()
         
-        offset = ord(hmac_hash[19]) & 0xf
+        offset = ord(hmac_hash[-1]) & 0xf
         code = ((ord(hmac_hash[offset]) & 0x7f) << 24 |
             (ord(hmac_hash[offset + 1]) & 0xff) << 16 |
             (ord(hmac_hash[offset + 2]) & 0xff) << 8 |
