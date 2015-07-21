@@ -88,3 +88,16 @@ Links
 * `Change log <https://github.com/pyotp/pyotp/blob/master/Changes.rst>`_
 * `ROTP <https://github.com/mdp/rotp>`_ - Original Ruby OTP library by `Mark Percival <https://github.com/mdp>`_
 * `OTPHP <https://github.com/lelag/otphp>`_ - PHP port of ROTP by `Le Lag <https://github.com/lelag>`_
+
+.. image:: https://img.shields.io/travis/pyotp/pyotp.svg
+        :target: https://travis-ci.org/pyotp/pyotp
+.. image:: https://img.shields.io/coveralls/pyotp/pyotp.svg
+        :target: https://coveralls.io/r/pyotp/pyotp?branch=master
+.. image:: https://img.shields.io/pypi/v/pyotp.svg
+        :target: https://pypi.python.org/pypi/pyotp
+.. image:: https://img.shields.io/pypi/dm/pyotp.svg
+        :target: https://pypi.python.org/pypi/pyotp
+.. image:: https://img.shields.io/pypi/l/pyotp.svg
+        :target: https://pypi.python.org/pypi/pyotp
+.. image:: https://readthedocs.org/projects/pyotp/badge/?version=latest
+        :target: https://pyotp.readthedocs.org/
