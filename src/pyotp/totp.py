@@ -1,7 +1,8 @@
-from pyotp.otp import OTP
-from pyotp import utils
 import datetime
 import time
+
+from pyotp import utils
+from pyotp.otp import OTP
 
 
 class TOTP(OTP):
@@ -38,7 +39,7 @@ class TOTP(OTP):
         if for_time is None:
             for_time = datetime.datetime.now()
 
-        return utils.strings_equal(unicode(otp), unicode(self.at(for_time)))
+        return utils.strings_equal(str(otp), str(self.at(for_time)))
 
     def provisioning_uri(self, name, issuer_name=None):
         """

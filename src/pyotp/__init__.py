@@ -1,18 +1,16 @@
-from pyotp.otp import OTP
+import random as _random
+
 from pyotp.hotp import HOTP
+from pyotp.otp import OTP
 from pyotp.totp import TOTP
-import utils
-
-import base64
-import random
-
+from . import utils
 
 VERSION = '1.3.0'
 
 
-def random_base32(length=16, random=random.SystemRandom(),
-                  chars=base64._b32alphabet.values()):
+def random_base32(length=16, random=_random.SystemRandom(),
+                  chars=list('ABCDEFGHIJKLMNOPQRSTUVWXYZ234567')):
     return ''.join(
         random.choice(chars)
-        for i in xrange(length)
+        for _ in range(length)
     )
