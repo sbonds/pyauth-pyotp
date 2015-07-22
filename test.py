@@ -1,4 +1,3 @@
-from __future__ import with_statement
 import base64
 import datetime
 import hashlib
@@ -50,16 +49,16 @@ class HOTPExampleValuesFromTheRFC(unittest.TestCase):
 
 class TOTPExampleValuesFromTheRFC(unittest.TestCase):
     RFC_VALUES = {
-        (hashlib.sha1, "12345678901234567890"): (
+        (hashlib.sha1, b'12345678901234567890'): (
             (59, 94287082),
-            (1111111109,  7081804),
+            (1111111109, 7081804),
             (1111111111, 14050471),
             (1234567890, 89005924),
             (2000000000, 69279037),
             (20000000000, 65353130),
         ),
 
-        (hashlib.sha256, "12345678901234567890123456789012"): (
+        (hashlib.sha256, b'12345678901234567890123456789012'): (
             (59, 46119246),
             (1111111109, 68084774),
             (1111111111, 67062674),
@@ -68,7 +67,7 @@ class TOTPExampleValuesFromTheRFC(unittest.TestCase):
             (20000000000, 77737706),
         ),
 
-        (hashlib.sha512, "1234567890123456789012345678901234567890123456789012345678901234"): (
+        (hashlib.sha512, b'1234567890123456789012345678901234567890123456789012345678901234'): (
             (59, 90693936),
             (1111111109, 25091201),
             (1111111111, 99943326),
@@ -110,23 +109,20 @@ class TOTPExampleValuesFromTheRFC(unittest.TestCase):
             totp.provisioning_uri('mark@percival', issuer_name='FooCorp!'),
             'otpauth://totp/FooCorp%21:mark@percival?secret=wrn3pqx5uqxqvnqr&issuer=FooCorp%21')
 
+    def testRandomKeyGeneration(self):
+        self.assertEqual(len(pyotp.random_base32()), 16)
+        self.assertEqual(len(pyotp.random_base32(length=20)), 20)
+
 
 class StringComparisonTest(unittest.TestCase):
     def testComparisons(self):
         self.assertTrue(pyotp.utils.strings_equal("", ""))
-        self.assertTrue(pyotp.utils.strings_equal(u"", u""))
         self.assertTrue(pyotp.utils.strings_equal("a", "a"))
-        self.assertTrue(pyotp.utils.strings_equal(u"a", u"a"))
-        self.assertTrue(pyotp.utils.strings_equal(u"a", u"a"))
         self.assertTrue(pyotp.utils.strings_equal("a" * 1000, "a" * 1000))
-        self.assertTrue(pyotp.utils.strings_equal(u"a" * 1000, u"a" * 1000))
 
         self.assertFalse(pyotp.utils.strings_equal("", "a"))
-        self.assertFalse(pyotp.utils.strings_equal(u"", u"a"))
         self.assertFalse(pyotp.utils.strings_equal("a", ""))
-        self.assertFalse(pyotp.utils.strings_equal(u"a", u""))
         self.assertFalse(pyotp.utils.strings_equal("a" * 999 + "b", "a" * 1000))
-        self.assertFalse(pyotp.utils.strings_equal(u"a" * 999 + u"b", u"a" * 1000))
 
 
 class Timecop(object):
@@ -147,7 +143,7 @@ class Timecop(object):
     def frozen_datetime(self):
         class FrozenDateTime(datetime.datetime):
             @classmethod
-            def now(cls):
+            def now(cls, **kwargs):
                 return cls.fromtimestamp(timecop.freeze_timestamp)
 
         timecop = self
