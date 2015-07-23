@@ -5,7 +5,7 @@ from pyotp.otp import OTP
 from pyotp.totp import TOTP
 from . import utils
 
-VERSION = '1.3.0'
+VERSION = '1.4.2'
 
 
 def random_base32(length=16, random=_random.SystemRandom(),
