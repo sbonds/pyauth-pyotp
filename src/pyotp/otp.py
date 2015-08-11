@@ -39,7 +39,11 @@ class OTP(object):
                 (hmac_hash[offset + 1] & 0xff) << 16 |
                 (hmac_hash[offset + 2] & 0xff) << 8 |
                 (hmac_hash[offset + 3] & 0xff))
-        return code % 10 ** self.digits
+        str_code = str(code % 10 ** self.digits)
+        while len(str_code) < self.digits:
+            str_code = '0' + str_code
+
+        return str_code
 
     def byte_secret(self):
         return base64.b32decode(self.secret, casefold=True)
