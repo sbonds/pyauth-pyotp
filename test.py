@@ -109,6 +109,13 @@ class TOTPExampleValuesFromTheRFC(unittest.TestCase):
         with Timecop(1297553958 + 30):
             self.assertFalse(totp.verify('102705'))
 
+    def testValidateATimeBasedOTPWithDigitLength(self):
+        totp = pyotp.TOTP('GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ')
+        with Timecop(1111111111):
+            self.assertTrue(totp.verify('050471'))
+        with Timecop(1297553958 + 30):
+            self.assertFalse(totp.verify('050471'))
+
     def testProvisioningURI(self):
         totp = pyotp.TOTP('wrn3pqx5uqxqvnqr')
         self.assertEqual(
