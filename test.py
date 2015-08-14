@@ -18,22 +18,22 @@ class HOTPExampleValuesFromTheRFC(unittest.TestCase):
         # 12345678901234567890 in Bas32
         # GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ
         hotp = pyotp.HOTP('GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ')
-        self.assertEqual(hotp.at(0), 755224)
-        self.assertEqual(hotp.at(1), 287082)
-        self.assertEqual(hotp.at(2), 359152)
-        self.assertEqual(hotp.at(3), 969429)
-        self.assertEqual(hotp.at(4), 338314)
-        self.assertEqual(hotp.at(5), 254676)
-        self.assertEqual(hotp.at(6), 287922)
-        self.assertEqual(hotp.at(7), 162583)
-        self.assertEqual(hotp.at(8), 399871)
-        self.assertEqual(hotp.at(9), 520489)
+        self.assertEqual(hotp.at(0), '755224')
+        self.assertEqual(hotp.at(1), '287082')
+        self.assertEqual(hotp.at(2), '359152')
+        self.assertEqual(hotp.at(3), '969429')
+        self.assertEqual(hotp.at(4), '338314')
+        self.assertEqual(hotp.at(5), '254676')
+        self.assertEqual(hotp.at(6), '287922')
+        self.assertEqual(hotp.at(7), '162583')
+        self.assertEqual(hotp.at(8), '399871')
+        self.assertEqual(hotp.at(9), '520489')
 
     def testVerifyAnOTPAndNowAllowReuse(self):
         hotp = pyotp.HOTP('GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ')
-        self.assertTrue(hotp.verify(520489, 9))
-        self.assertFalse(hotp.verify(520489, 10))
-        self.assertFalse(hotp.verify("520489", 10))
+        self.assertTrue(hotp.verify('520489', 9))
+        self.assertFalse(hotp.verify('520489', 10))
+        self.assertFalse(hotp.verify('520489', 10))
 
     def testProvisioningURI(self):
         hotp = pyotp.HOTP('wrn3pqx5uqxqvnqr')
@@ -54,30 +54,30 @@ class HOTPExampleValuesFromTheRFC(unittest.TestCase):
 class TOTPExampleValuesFromTheRFC(unittest.TestCase):
     RFC_VALUES = {
         (hashlib.sha1, b'12345678901234567890'): (
-            (59, 94287082),
-            (1111111109, 7081804),
-            (1111111111, 14050471),
-            (1234567890, 89005924),
-            (2000000000, 69279037),
-            (20000000000, 65353130),
+            (59, '94287082'),
+            (1111111109, '07081804'),
+            (1111111111, '14050471'),
+            (1234567890, '89005924'),
+            (2000000000, '69279037'),
+            (20000000000, '65353130'),
         ),
 
         (hashlib.sha256, b'12345678901234567890123456789012'): (
             (59, 46119246),
-            (1111111109, 68084774),
-            (1111111111, 67062674),
-            (1234567890, 91819424),
-            (2000000000, 90698825),
-            (20000000000, 77737706),
+            (1111111109, '68084774'),
+            (1111111111, '67062674'),
+            (1234567890, '91819424'),
+            (2000000000, '90698825'),
+            (20000000000, '77737706'),
         ),
 
         (hashlib.sha512, b'1234567890123456789012345678901234567890123456789012345678901234'): (
             (59, 90693936),
-            (1111111109, 25091201),
-            (1111111111, 99943326),
-            (1234567890, 93441116),
-            (2000000000, 38618901),
-            (20000000000, 47863826),
+            (1111111109, '25091201'),
+            (1111111111, '99943326'),
+            (1234567890, '93441116'),
+            (2000000000, '38618901'),
+            (20000000000, '47863826'),
         ),
     }
 
@@ -86,22 +86,35 @@ class TOTPExampleValuesFromTheRFC(unittest.TestCase):
             totp = pyotp.TOTP(base64.b32encode(secret), 8, digest)
             for utime, code in self.RFC_VALUES[(digest, secret)]:
                 value = totp.at(utime)
-                msg = "%d != %d (%s, time=%d)"
+                msg = "%s != %s (%s, time=%d)"
                 msg %= (value, code, digest().name, utime)
-                self.assertEqual(value, code, msg)
+                self.assertEqual(value, str(code), msg)
+
+    def testMatchTheRFCDigitLength(self):
+        totp = pyotp.TOTP('GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ')
+        self.assertEqual(totp.at(1111111111), '050471')
+        self.assertEqual(totp.at(1234567890), '005924')
+        self.assertEqual(totp.at(2000000000), '279037')
 
     def testMatchTheGoogleAuthenticatorOutput(self):
         totp = pyotp.TOTP('wrn3pqx5uqxqvnqr')
         with Timecop(1297553958):
-            self.assertEqual(totp.now(), 102705)
+            self.assertEqual(totp.now(), '102705')
 
     def testValidateATimeBasedOTP(self):
         totp = pyotp.TOTP('wrn3pqx5uqxqvnqr')
         with Timecop(1297553958):
-            self.assertTrue(totp.verify(102705))
-            self.assertTrue(totp.verify("102705"))
+            self.assertTrue(totp.verify('102705'))
+            self.assertTrue(totp.verify('102705'))
         with Timecop(1297553958 + 30):
-            self.assertFalse(totp.verify(102705))
+            self.assertFalse(totp.verify('102705'))
+
+    def testValidateATimeBasedOTPWithDigitLength(self):
+        totp = pyotp.TOTP('GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ')
+        with Timecop(1111111111):
+            self.assertTrue(totp.verify('050471'))
+        with Timecop(1297553958 + 30):
+            self.assertFalse(totp.verify('050471'))
 
     def testProvisioningURI(self):
         totp = pyotp.TOTP('wrn3pqx5uqxqvnqr')
