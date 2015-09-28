@@ -1,3 +1,7 @@
+Version 2.0.1 (2015-09-28)
+--------------------------
+- Fix packaging issue in v2.0.0 that prevented installation with easy_install.
+
 Version 2.0.0 (2015-08-22)
 --------------------------
 - The ``pyotp.HOTP.at()``, ``pyotp.TOTP.at()``, and
