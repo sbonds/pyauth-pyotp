@@ -142,6 +142,20 @@ class StringComparisonTest(unittest.TestCase):
         self.assertFalse(pyotp.utils.strings_equal("a" * 999 + "b", "a" * 1000))
 
 
+class CounterOffsetTest(unittest.TestCase):
+    def testCounterOffset(self):
+        totp = pyotp.TOTP("ABCDEFGH")
+        self.assertTrue(pyotp.utils.strings_equal(totp.at(0), "058591"))
+        self.assertTrue(pyotp.utils.strings_equal(totp.at(0, 1), "233946"))
+
+
+class ValidWindowTest(unittest.TestCase):
+    def testValidWindow(self):
+        totp = pyotp.TOTP("ABCDEFGH")
+        self.assertFalse(totp.verify("233946", 0))
+        self.assertTrue(totp.verify("233946", 0, 1))
+
+
 class Timecop(object):
     """
     Half-assed clone of timecop.rb, just enough to pass our tests.
