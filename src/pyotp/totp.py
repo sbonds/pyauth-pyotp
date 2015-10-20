@@ -16,16 +16,16 @@ class TOTP(OTP):
         self.interval = kwargs.pop('interval', 30)
         super(TOTP, self).__init__(*args, **kwargs)
 
-    def at(self, for_time, increment=0):
+    def at(self, for_time, counter_offset=0):
         """
         Accepts either a Unix timestamp integer or a Time object.
         Time objects will be adjusted to UTC automatically
         @param [Time/Integer] time the time to generate an OTP for
-        @param [Integer] increment an amount of ticks to add to the time counter 
+        @param [Integer] counter_offset an amount of ticks to add to the time counter 
         """
         if not isinstance(for_time, datetime.datetime):
             for_time = datetime.datetime.fromtimestamp(int(for_time))
-        return self.generate_otp(self.timecode(for_time) + increment)
+        return self.generate_otp(self.timecode(for_time) + counter_offset)
 
     def now(self):
         """
