@@ -34,17 +34,17 @@ class TOTP(OTP):
         """
         return self.generate_otp(self.timecode(datetime.datetime.now()))
 
-    def verify(self, otp, for_time=None, extra_range=0):
+    def verify(self, otp, for_time=None, valid_window=0):
         """
         Verifies the OTP passed in against the current time OTP
         @param [String/Integer] otp the OTP to check against
-        @param [Integer] extra_range extends the validity to this many counter ticks before and after the current one
+        @param [Integer] valid_window extends the validity to this many counter ticks before and after the current one
         """
         if for_time is None:
             for_time = datetime.datetime.now()
         
-        if extra_range:
-            for i in xrange(-extra_range, extra_range + 1):
+        if valid_window:
+            for i in xrange(-valid_window, valid_window + 1):
                 if utils.strings_equal(str(otp), str(self.at(for_time, i))):
                     return True
             return False
