@@ -145,8 +145,8 @@ class StringComparisonTest(unittest.TestCase):
 class CounterOffsetTest(unittest.TestCase):
     def testCounterOffset(self):
         totp = pyotp.TOTP("ABCDEFGH")
-        self.assertTrue(pyotp.utils.strings_equal(totp.at(200), str("028307")))
-        self.assertTrue(pyotp.utils.strings_equal(totp.at(200, 1), str("681610")))
+        self.assertEqual(totp.at(200), "028307")
+        self.assertTrue(totp.at(200, 1), "681610")
 
 
 class ValidWindowTest(unittest.TestCase):
