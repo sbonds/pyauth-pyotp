@@ -145,15 +145,15 @@ class StringComparisonTest(unittest.TestCase):
 class CounterOffsetTest(unittest.TestCase):
     def testCounterOffset(self):
         totp = pyotp.TOTP("ABCDEFGH")
-        self.assertTrue(pyotp.utils.strings_equal(totp.at(0), "058591"))
-        self.assertTrue(pyotp.utils.strings_equal(totp.at(0, 1), "233946"))
+        self.assertTrue(pyotp.utils.strings_equal(totp.at(200), "028307"))
+        self.assertTrue(pyotp.utils.strings_equal(totp.at(200, 1), "681610"))
 
 
 class ValidWindowTest(unittest.TestCase):
     def testValidWindow(self):
         totp = pyotp.TOTP("ABCDEFGH")
-        self.assertFalse(totp.verify("233946", 0))
-        self.assertTrue(totp.verify("233946", 0, 1))
+        self.assertFalse(totp.verify("681610", 200))
+        self.assertTrue(totp.verify("681610", 200, 1))
 
 
 class Timecop(object):
