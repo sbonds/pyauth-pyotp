@@ -152,8 +152,10 @@ class CounterOffsetTest(unittest.TestCase):
 class ValidWindowTest(unittest.TestCase):
     def testValidWindow(self):
         totp = pyotp.TOTP("ABCDEFGH")
-        self.assertFalse(totp.verify("681610", 200))
+        self.assertTrue(totp.verify("451564", 200, 1))
+        self.assertTrue(totp.verify("028307", 200, 1))
         self.assertTrue(totp.verify("681610", 200, 1))
+        self.assertFalse(totp.verify("195979", 200, 1))
 
 
 class Timecop(object):
