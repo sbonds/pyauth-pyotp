@@ -49,6 +49,13 @@ class HOTPExampleValuesFromTheRFC(unittest.TestCase):
         self.assertEqual(
             hotp.provisioning_uri('mark@percival', issuer_name='FooCorp!'),
             'otpauth://hotp/FooCorp%21:mark@percival?secret=wrn3pqx5uqxqvnqr&counter=0&issuer=FooCorp%21')
+    def testOtherSecret(self):
+        hotp = pyotp.HOTP('N3OVNIBRERIO5OHGVCMDGS4V4RJ3AUZOUN34J6FRM4P6JIFCG3ZA')
+        self.assertEqual(hotp.at(0), '737863')
+        self.assertEqual(hotp.at(1), '390601')
+        self.assertEqual(hotp.at(2), '363354')
+        self.assertEqual(hotp.at(3), '936780')
+        self.assertEqual(hotp.at(4), '654019')
 
 
 class TOTPExampleValuesFromTheRFC(unittest.TestCase):
