@@ -3,7 +3,7 @@ from __future__ import print_function, unicode_literals, division, absolute_impo
 import base64
 import hashlib
 import hmac
-
+from future.builtins import str
 
 class OTP(object):
     def __init__(self, s, digits=6, digest=hashlib.sha1):

@@ -1,10 +1,11 @@
 from __future__ import print_function, unicode_literals, division, absolute_import
 
+import unicodedata
+
 try:
     from urllib.parse import quote
 except ImportError:
     from urllib import quote
-
 
 def build_uri(secret, name, initial_count=None, issuer_name=None):
     """
@@ -60,6 +61,8 @@ def strings_equal(s1, s2):
     still reveal to a timing attack whether the strings are the same
     length.
     """
+    s1 = unicodedata.normalize('NFKC', s1)
+    s2 = unicodedata.normalize('NFKC', s2)
     try:
         # Python 3.3+ and 2.7.7+ include a timing-attack-resistant
         # comparison function, which is probably more reliable than ours.

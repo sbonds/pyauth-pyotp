@@ -5,7 +5,7 @@ import time
 
 from pyotp import utils
 from pyotp.otp import OTP
-
+from future.builtins import str
 
 class TOTP(OTP):
     def __init__(self, *args, **kwargs):

@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# coding: utf-8
 
 from __future__ import print_function, unicode_literals, division, absolute_import
 
@@ -12,9 +13,8 @@ import unittest
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
 import pyotp
 
-
 class HOTPExampleValuesFromTheRFC(unittest.TestCase):
-    def testMatchTheRFC(self):
+    def test_match_rfc(self):
         # 12345678901234567890 in Bas32
         # GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ
         hotp = pyotp.HOTP('GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ')
@@ -29,13 +29,13 @@ class HOTPExampleValuesFromTheRFC(unittest.TestCase):
         self.assertEqual(hotp.at(8), '399871')
         self.assertEqual(hotp.at(9), '520489')
 
-    def testVerifyAnOTPAndNowAllowReuse(self):
+    def test_verify_otp_reuse(self):
         hotp = pyotp.HOTP('GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ')
         self.assertTrue(hotp.verify('520489', 9))
         self.assertFalse(hotp.verify('520489', 10))
         self.assertFalse(hotp.verify('520489', 10))
 
-    def testProvisioningURI(self):
+    def test_provisioning_uri(self):
         hotp = pyotp.HOTP('wrn3pqx5uqxqvnqr')
 
         self.assertEqual(
@@ -49,14 +49,14 @@ class HOTPExampleValuesFromTheRFC(unittest.TestCase):
         self.assertEqual(
             hotp.provisioning_uri('mark@percival', issuer_name='FooCorp!'),
             'otpauth://hotp/FooCorp%21:mark@percival?secret=wrn3pqx5uqxqvnqr&counter=0&issuer=FooCorp%21')
-    def testOtherSecret(self):
+
+    def test_other_secret(self):
         hotp = pyotp.HOTP('N3OVNIBRERIO5OHGVCMDGS4V4RJ3AUZOUN34J6FRM4P6JIFCG3ZA')
         self.assertEqual(hotp.at(0), '737863')
         self.assertEqual(hotp.at(1), '390601')
         self.assertEqual(hotp.at(2), '363354')
         self.assertEqual(hotp.at(3), '936780')
         self.assertEqual(hotp.at(4), '654019')
-
 
 class TOTPExampleValuesFromTheRFC(unittest.TestCase):
     RFC_VALUES = {
@@ -88,7 +88,7 @@ class TOTPExampleValuesFromTheRFC(unittest.TestCase):
         ),
     }
 
-    def testMatchTheRFC(self):
+    def test_match_rfc(self):
         for digest, secret in self.RFC_VALUES:
             totp = pyotp.TOTP(base64.b32encode(secret), 8, digest)
             for utime, code in self.RFC_VALUES[(digest, secret)]:
@@ -97,18 +97,18 @@ class TOTPExampleValuesFromTheRFC(unittest.TestCase):
                 msg %= (value, code, digest().name, utime)
                 self.assertEqual(value, str(code), msg)
 
-    def testMatchTheRFCDigitLength(self):
+    def test_match_rfc_digit_length(self):
         totp = pyotp.TOTP('GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ')
         self.assertEqual(totp.at(1111111111), '050471')
         self.assertEqual(totp.at(1234567890), '005924')
         self.assertEqual(totp.at(2000000000), '279037')
 
-    def testMatchTheGoogleAuthenticatorOutput(self):
+    def test_match_google_authenticator_output(self):
         totp = pyotp.TOTP('wrn3pqx5uqxqvnqr')
         with Timecop(1297553958):
             self.assertEqual(totp.now(), '102705')
 
-    def testValidateATimeBasedOTP(self):
+    def test_validate_totp(self):
         totp = pyotp.TOTP('wrn3pqx5uqxqvnqr')
         with Timecop(1297553958):
             self.assertTrue(totp.verify('102705'))
@@ -116,14 +116,14 @@ class TOTPExampleValuesFromTheRFC(unittest.TestCase):
         with Timecop(1297553958 + 30):
             self.assertFalse(totp.verify('102705'))
 
-    def testValidateATimeBasedOTPWithDigitLength(self):
+    def test_validate_totp_with_digit_length(self):
         totp = pyotp.TOTP('GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ')
         with Timecop(1111111111):
             self.assertTrue(totp.verify('050471'))
         with Timecop(1297553958 + 30):
             self.assertFalse(totp.verify('050471'))
 
-    def testProvisioningURI(self):
+    def test_provisioning_uri(self):
         totp = pyotp.TOTP('wrn3pqx5uqxqvnqr')
         self.assertEqual(
             totp.provisioning_uri('mark@percival'),
@@ -133,13 +133,12 @@ class TOTPExampleValuesFromTheRFC(unittest.TestCase):
             totp.provisioning_uri('mark@percival', issuer_name='FooCorp!'),
             'otpauth://totp/FooCorp%21:mark@percival?secret=wrn3pqx5uqxqvnqr&issuer=FooCorp%21')
 
-    def testRandomKeyGeneration(self):
+    def test_random_key_generation(self):
         self.assertEqual(len(pyotp.random_base32()), 16)
         self.assertEqual(len(pyotp.random_base32(length=20)), 20)
 
-
 class StringComparisonTest(unittest.TestCase):
-    def testComparisons(self):
+    def test_comparisons(self):
         self.assertTrue(pyotp.utils.strings_equal("", ""))
         self.assertTrue(pyotp.utils.strings_equal("a", "a"))
         self.assertTrue(pyotp.utils.strings_equal("a" * 1000, "a" * 1000))
@@ -148,22 +147,22 @@ class StringComparisonTest(unittest.TestCase):
         self.assertFalse(pyotp.utils.strings_equal("a", ""))
         self.assertFalse(pyotp.utils.strings_equal("a" * 999 + "b", "a" * 1000))
 
+    def test_fullwidth_input(self):
+        self.assertTrue(pyotp.utils.strings_equal("ｘs１２３45", "xs12345"))
 
 class CounterOffsetTest(unittest.TestCase):
-    def testCounterOffset(self):
+    def test_counter_offset(self):
         totp = pyotp.TOTP("ABCDEFGH")
         self.assertEqual(totp.at(200), "028307")
         self.assertTrue(totp.at(200, 1), "681610")
 
-
 class ValidWindowTest(unittest.TestCase):
-    def testValidWindow(self):
+    def test_valid_window(self):
         totp = pyotp.TOTP("ABCDEFGH")
         self.assertTrue(totp.verify("451564", 200, 1))
         self.assertTrue(totp.verify("028307", 200, 1))
         self.assertTrue(totp.verify("681610", 200, 1))
         self.assertFalse(totp.verify("195979", 200, 1))
-
 
 class Timecop(object):
     """
@@ -188,7 +187,6 @@ class Timecop(object):
 
         timecop = self
         return FrozenDateTime
-
 
 if __name__ == '__main__':
     unittest.main()
