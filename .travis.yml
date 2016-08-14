@@ -9,15 +9,14 @@ python:
   - pypy3
 
 install:
-    - python setup.py install
-    - pip install coverage coveralls
+  - python setup.py install
+  - pip install coverage coveralls
 
 script:
-    - coverage run --source=src/pyotp ./test.py
-#    - coverage report --show-missing
+  - make test
 
 after_success:
-    - coveralls
+  - bash <(curl -s https://codecov.io/bash)
 
 matrix:
   allow_failures:

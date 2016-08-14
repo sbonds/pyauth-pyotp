@@ -1,19 +1,16 @@
-SHELL=/bin/bash
+SHELL=/bin/bash -e
 
-env: requirements.txt
-	virtualenv --python=python env
-	source env/bin/activate; pip install --requirement=requirements.txt
-	source env/bin/activate; pip list --outdated
+wheel: lint clean
+	./setup.py bdist_wheel
 
-test: env
-	-pylint -E src
-	source env/bin/activate; ./test.py -v
+test_deps:
+	pip install coverage flake8
 
-test3: env
-	python3 ./test.py -v
+lint: test_deps
+	python setup.py flake8
 
-release: docs
-	python setup.py sdist bdist_wheel upload --sign
+test: test_deps lint
+	coverage run setup.py test
 
 init_docs:
 	cd docs; sphinx-quickstart
@@ -21,7 +18,12 @@ init_docs:
 docs:
 	$(MAKE) -C docs html
 
-install:
-	./setup.py install
+install: clean
+	python ./setup.py bdist_wheel
+	pip install --upgrade dist/*.whl
 
-.PHONY: test release docs
+clean:
+	-rm -rf build dist
+	-rm -rf *.egg-info
+
+.PHONY: wheel lint test test_deps docs install clean
