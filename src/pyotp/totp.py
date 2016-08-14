@@ -21,7 +21,7 @@ class TOTP(OTP):
         Accepts either a Unix timestamp integer or a Time object.
         Time objects will be adjusted to UTC automatically
         @param [Time/Integer] time the time to generate an OTP for
-        @param [Integer] counter_offset an amount of ticks to add to the time counter 
+        @param [Integer] counter_offset an amount of ticks to add to the time counter
         """
         if not isinstance(for_time, datetime.datetime):
             for_time = datetime.datetime.fromtimestamp(int(for_time))
@@ -42,7 +42,7 @@ class TOTP(OTP):
         """
         if for_time is None:
             for_time = datetime.datetime.now()
-        
+
         if valid_window:
             for i in range(-valid_window, valid_window + 1):
                 if utils.strings_equal(str(otp), str(self.at(for_time, i))):
