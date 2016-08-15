@@ -102,8 +102,6 @@ Links
         :target: https://coveralls.io/r/pyotp/pyotp?branch=master
 .. image:: https://img.shields.io/pypi/v/pyotp.svg
         :target: https://pypi.python.org/pypi/pyotp
-.. image:: https://img.shields.io/pypi/dm/pyotp.svg
-        :target: https://pypi.python.org/pypi/pyotp
 .. image:: https://img.shields.io/pypi/l/pyotp.svg
         :target: https://pypi.python.org/pypi/pyotp
 .. image:: https://readthedocs.org/projects/pyotp/badge/?version=latest
