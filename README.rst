@@ -82,7 +82,7 @@ Now run the following and compare the output::
 
     import pyotp
     totp = pyotp.TOTP("JBSWY3DPEHPK3PXP")
-    print "Current OTP: %s" % totp.now()
+    print("Current OTP:", totp.now())
 
 Links
 ~~~~~
