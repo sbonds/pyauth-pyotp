@@ -98,8 +98,8 @@ Links
 
 .. image:: https://img.shields.io/travis/pyotp/pyotp.svg
         :target: https://travis-ci.org/pyotp/pyotp
-.. image:: https://img.shields.io/coveralls/pyotp/pyotp.svg
-        :target: https://coveralls.io/r/pyotp/pyotp?branch=master
+.. image:: https://img.shields.io/codecov/c/github/pyotp/pyotp/master.svg
+        :target: https://codecov.io/github/pyotp/pyotp?branch=master
 .. image:: https://img.shields.io/pypi/v/pyotp.svg
         :target: https://pypi.python.org/pypi/pyotp
 .. image:: https://img.shields.io/pypi/l/pyotp.svg
