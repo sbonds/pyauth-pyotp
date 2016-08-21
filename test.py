@@ -191,8 +191,7 @@ class TOTPExampleValuesFromTheRFC(unittest.TestCase):
 
         key = 'c7uxuqhgflpw7oruedmglbrk7u6242vb'
         totp = pyotp.TOTP(key, digits=8, interval=60, digest=hashlib.sha256)
-        url = urlparse(
-                totp.provisioning_uri('baco@peperina', issuer_name='FooCorp'))
+        url = urlparse(totp.provisioning_uri('baco@peperina', issuer_name='FooCorp'))
         self.assertEqual(url.scheme, 'otpauth')
         self.assertEqual(url.netloc, 'totp')
         self.assertEqual(url.path, '/FooCorp:baco%40peperina')
@@ -203,8 +202,7 @@ class TOTPExampleValuesFromTheRFC(unittest.TestCase):
                           'algorithm': 'SHA256'})
 
         totp = pyotp.TOTP(key, digits=8, interval=60)
-        url = urlparse(
-                totp.provisioning_uri('baco@peperina', issuer_name='FooCorp'))
+        url = urlparse(totp.provisioning_uri('baco@peperina', issuer_name='FooCorp'))
         self.assertEqual(url.scheme, 'otpauth')
         self.assertEqual(url.netloc, 'totp')
         self.assertEqual(url.path, '/FooCorp:baco%40peperina')
@@ -214,8 +212,7 @@ class TOTPExampleValuesFromTheRFC(unittest.TestCase):
                           'digits': '8', 'period': '60'})
 
         totp = pyotp.TOTP(key, digits=8)
-        url = urlparse(
-                totp.provisioning_uri('baco@peperina', issuer_name='FooCorp'))
+        url = urlparse(totp.provisioning_uri('baco@peperina', issuer_name='FooCorp'))
         self.assertEqual(url.scheme, 'otpauth')
         self.assertEqual(url.netloc, 'totp')
         self.assertEqual(url.path, '/FooCorp:baco%40peperina')
