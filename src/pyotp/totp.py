@@ -21,7 +21,6 @@ class TOTP(OTP):
     def at(self, for_time, counter_offset=0):
         """
         Accepts either a Unix timestamp integer or a Time object.
-        Time objects will be adjusted to UTC automatically
         @param [Time/Integer] time the time to generate an OTP for
         @param [Integer] counter_offset an amount of ticks to add to the time
             counter
