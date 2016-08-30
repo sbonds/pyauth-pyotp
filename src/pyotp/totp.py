@@ -24,7 +24,7 @@ class TOTP(OTP):
             counter
         """
         if not isinstance(for_time, datetime.datetime):
-            for_time = datetime.datetime.fromtimestamp(0) + datetime.timedelta(seconds=int(for_time))
+            for_time = datetime.datetime.fromtimestamp(int(for_time))
         return self.generate_otp(self.timecode(for_time) + counter_offset)
 
     def now(self):
