@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-from __future__ import (absolute_import, division,
-                        print_function, unicode_literals)
+from __future__ import absolute_import, division, print_function, unicode_literals
 
 import base64
 import datetime
@@ -16,8 +15,7 @@ except ImportError:
     from urlparse import urlparse, parse_qsl
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
-import pyotp
-
+import pyotp  # noqa
 
 class HOTPExampleValuesFromTheRFC(unittest.TestCase):
     def test_match_rfc(self):
@@ -139,6 +137,10 @@ class TOTPExampleValuesFromTheRFC(unittest.TestCase):
         for digest, secret in self.RFC_VALUES:
             totp = pyotp.TOTP(base64.b32encode(secret), 8, digest)
             for utime, code in self.RFC_VALUES[(digest, secret)]:
+                # 32-bit platforms use native functions to handle timestamps, so they fail this test
+                # (and will fail after 19 January 2038)
+                if utime > sys.maxsize:
+                    continue
                 value = totp.at(utime)
                 msg = "%s != %s (%s, time=%d)"
                 msg %= (value, code, digest().name, utime)
