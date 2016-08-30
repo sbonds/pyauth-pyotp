@@ -3,12 +3,9 @@
 
 from __future__ import absolute_import, division, print_function, unicode_literals
 
-import base64
-import datetime
-import hashlib
-import os
-import sys
-import unittest
+import base64, datetime, hashlib, os, sys, unittest
+from warnings import warn
+
 try:
     from urllib.parse import urlparse, parse_qsl
 except ImportError:
@@ -137,9 +134,9 @@ class TOTPExampleValuesFromTheRFC(unittest.TestCase):
         for digest, secret in self.RFC_VALUES:
             totp = pyotp.TOTP(base64.b32encode(secret), 8, digest)
             for utime, code in self.RFC_VALUES[(digest, secret)]:
-                # 32-bit platforms use native functions to handle timestamps, so they fail this test
-                # (and will fail after 19 January 2038)
                 if utime > sys.maxsize:
+                    warn("32-bit platforms use native functions to handle timestamps, so they fail this test" +
+                         " (and will fail after 19 January 2038)")
                     continue
                 value = totp.at(utime)
                 msg = "%s != %s (%s, time=%d)"
