@@ -19,6 +19,7 @@ setup(
     package_dir={'': 'src'},
     platforms=['MacOS X', 'Posix'],
     zip_safe=False,
+    test_suite="test",
     classifiers=[
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',

@@ -1,13 +1,11 @@
-from __future__ import (absolute_import, division,
-                        print_function, unicode_literals)
+from __future__ import absolute_import, division, print_function, unicode_literals
 
 import datetime
 import time
 
-from pyotp import utils
-from pyotp.otp import OTP
-from future.builtins import str
-
+from . import utils
+from .otp import OTP
+from .compat import str
 
 class TOTP(OTP):
     def __init__(self, *args, **kwargs):
