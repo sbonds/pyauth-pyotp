@@ -13,14 +13,7 @@ Changes for v2.2.1 (2016-08-30)
 Changes for v2.2.0 (2016-08-30)
 ===============================
 
--  Avoid using python-future; it has subdependencies that limit
-   compatibility (#34)
--  Make test suite pass on 32-bit platforms (#30)
--  Timing attack resistance fix: don't reveal string length to attacker.
-   Thanks to Eeo Jun (#28).
--  Support algorithm, digits, period parameters in provisioning\_uri.
-   Thanks to Dionisio E Alonso (#33).
--  Minor style and packaging infrastructure fixes.
+-  See v2.2.1
 
 Version 2.1.0 (2016-05-02)
 --------------------------
