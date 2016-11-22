@@ -46,7 +46,7 @@ def build_uri(secret, name, initial_count=None, issuer_name=None,
     is_period_set = (period is not None and period != 30)
 
     otp_type = 'hotp' if is_initial_count_present else 'totp'
-    base_uri = 'otpauth://{}/{}?{}'
+    base_uri = 'otpauth://{1}/{2}?{3}'
 
     url_args = {'secret': secret}
 
