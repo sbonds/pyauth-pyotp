@@ -1,3 +1,13 @@
+Changes for v2.2.3 (2017-01-04)
+===============================
+
+-  Restore Python 2.6 compatibility (however, Python 2.6 is not
+   supported)
+
+-  Documentation and test improvements
+
+-  Fix release infra script
+
 Changes for v2.2.2 (2017-01-04)
 ===============================
 
