@@ -12,6 +12,8 @@ Authenticator <https://en.wikipedia.org/wiki/Google_Authenticator>`_, `Authy <ht
 compatible app. Users can set up auth tokens in their apps easily by using their phone camera to scan `otpauth://
 <https://github.com/google/google-authenticator/wiki/Key-Uri-Format>`_ QR codes provided by PyOTP.
 
+We recommend that implementers read the `OWASP Authentication Cheat Sheet <https://www.owasp.org/index.php/Authentication_Cheat_Sheet>`_ and `NIST SP 800-63-3: Digital Authentication Guideline <https://pages.nist.gov/800-63-3/>`_ for a high level overview of authentication best practices.
+
 Quick overview of using One Time Passwords on your phone
 --------------------------------------------------------
 
@@ -95,6 +97,8 @@ Links
 * `RFC 6238: TOTP: Time-Based One-Time Password Algorithm <https://tools.ietf.org/html/rfc6238>`_
 * `ROTP <https://github.com/mdp/rotp>`_ - Original Ruby OTP library by `Mark Percival <https://github.com/mdp>`_
 * `OTPHP <https://github.com/lelag/otphp>`_ - PHP port of ROTP by `Le Lag <https://github.com/lelag>`_
+* `OWASP Authentication Cheat Sheet <https://www.owasp.org/index.php/Authentication_Cheat_Sheet>`_
+* `NIST SP 800-63-3: Digital Authentication Guideline <https://pages.nist.gov/800-63-3/>`_
 
 .. image:: https://img.shields.io/travis/pyotp/pyotp.svg
         :target: https://travis-ci.org/pyotp/pyotp
