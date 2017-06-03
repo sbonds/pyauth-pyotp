@@ -1,3 +1,12 @@
+Changes for v2.2.5 (2017-06-03)
+===============================
+
+-  Quote issuer QS parameter in provisioning\_uri. Fixes #47.
+
+-  Raise an exception if a negative integer is passed to at() (#41).
+
+-  Documentation and release infrastructure improvements.
+
 Changes for v2.2.4 (2017-01-04)
 ===============================
 
