@@ -96,7 +96,7 @@ Links
 ~~~~~
 
 * `Project home page (GitHub) <https://github.com/pyotp/pyotp>`_
-* `Documentation (Read the Docs) <https://pyotp.readthedocs.org/en/latest/>`_
+* `Documentation (Read the Docs) <https://pyotp.readthedocs.io/en/latest/>`_
 * `Package distribution (PyPI) <https://pypi.python.org/pypi/pyotp>`_
 * `Change log <https://github.com/pyotp/pyotp/blob/master/Changes.rst>`_
 * `RFC 4226: HOTP: An HMAC-Based One-Time Password <https://tools.ietf.org/html/rfc4226>`_
@@ -114,5 +114,5 @@ Links
         :target: https://pypi.python.org/pypi/pyotp
 .. image:: https://img.shields.io/pypi/l/pyotp.svg
         :target: https://pypi.python.org/pypi/pyotp
-.. image:: https://readthedocs.org/projects/pyotp/badge/?version=latest
-        :target: https://pyotp.readthedocs.org/
+.. image:: https://readthedocs.io/projects/pyotp/badge/?version=latest
+        :target: https://pyotp.readthedocs.io/
