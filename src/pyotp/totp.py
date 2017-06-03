@@ -8,6 +8,9 @@ from .otp import OTP
 from .compat import str
 
 class TOTP(OTP):
+    """
+    Handler for time-based OTP counters.
+    """
     def __init__(self, *args, **kwargs):
         """
         @option options [Integer] interval (30) the time interval in seconds

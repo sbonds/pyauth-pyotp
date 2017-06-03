@@ -5,6 +5,9 @@ from .otp import OTP
 from .compat import str
 
 class HOTP(OTP):
+    """
+    Handler for HMAC-based OTP counters.
+    """
     def at(self, count):
         """
         Generates the OTP for the given count
