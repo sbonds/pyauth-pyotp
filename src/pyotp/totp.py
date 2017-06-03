@@ -71,9 +71,10 @@ class TOTP(OTP):
         """
         Returns the provisioning URI for the OTP.  This can then be
         encoded in a QR Code and used to provision an OTP app like
-        Google Authenticator. See
-        https://github.com/google/google-authenticator/wiki/Key-Uri-Format
-        for more details.
+        Google Authenticator.
+
+        See also:
+            https://github.com/google/google-authenticator/wiki/Key-Uri-Format
 
         :param name: name of the user account
         :type name: str
