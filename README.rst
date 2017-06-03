@@ -114,5 +114,5 @@ Links
         :target: https://pypi.python.org/pypi/pyotp
 .. image:: https://img.shields.io/pypi/l/pyotp.svg
         :target: https://pypi.python.org/pypi/pyotp
-.. image:: https://readthedocs.io/projects/pyotp/badge/?version=latest
+.. image:: https://readthedocs.org/projects/pyotp/badge/?version=latest
         :target: https://pyotp.readthedocs.io/
