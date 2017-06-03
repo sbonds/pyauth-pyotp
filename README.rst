@@ -31,7 +31,7 @@ Installation
 Usage
 -----
 
-Time based OTPs
+Time-based OTPs
 ~~~~~~~~~~~~~~~
 ::
 
@@ -60,23 +60,29 @@ Generating a base32 Secret Key
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ::
 
-    pyotp.random_base32() # returns a 16 character base32 secret. Compatible with Google Authenticator
+    pyotp.random_base32() # returns a 16 character base32 secret. Compatible with Google Authenticator and other OTP apps
 
 Google Authenticator Compatible
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The library works with the Google Authenticator iPhone and Android app, and also includes the ability to generate
-provisioning URI's for use with the QR Code scanner built into the app::
+PyOTP works with the Google Authenticator iPhone and Android app, as well as other OTP apps like Authy. PyOTP includes the
+ability to generate provisioning URIs for use with the QR Code scanner built into these MFA client apps::
 
-    totp.provisioning_uri("alice@google.com") # => 'otpauth://totp/alice@google.com?secret=JBSWY3DPEHPK3PXP'
-    hotp.provisioning_uri("alice@google.com", 0) # => 'otpauth://hotp/alice@google.com?secret=JBSWY3DPEHPK3PXP&counter=0'
+    pyotp.totp.TOTP('JBSWY3DPEHPK3PXP').provisioning_uri("alice@google.com", issuer_name="Secure App")
 
-This can then be rendered as a QR Code which can then be scanned and added to the users list of OTP credentials.
+    >>> 'otpauth://totp/Secure%20App:alice%40google.com?secret=JBSWY3DPEHPK3PXP&issuer=Secure+App'
+
+    pyotp.hotp.HOTP('JBSWY3DPEHPK3PXP').provisioning_uri("alice@google.com", initial_count=0, issuer_name="Secure App")
+
+    >>> 'otpauth://hotp/Secure%20App:alice%40google.com?secret=JBSWY3DPEHPK3PXP&issuer=Secure+App&counter=0'
+
+This URL can then be rendered as a QR Code (for example, using https://github.com/neocotic/qrious) which can then be scanned
+and added to the users list of OTP credentials.
 
 Working example
 ~~~~~~~~~~~~~~~
 
-Scan the following barcode with your phone, using Google Authenticator
+Scan the following barcode with your phone's OTP app (e.g. Google Authenticator):
 
 .. image:: http://chart.apis.google.com/chart?cht=qr&chs=250x250&chl=otpauth%3A%2F%2Ftotp%2Falice%40google.com%3Fsecret%3DJBSWY3DPEHPK3PXP
 
