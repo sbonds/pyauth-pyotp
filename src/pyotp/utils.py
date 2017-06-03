@@ -53,7 +53,7 @@ def build_uri(secret, name, initial_count=None, issuer_name=None,
     label = quote(name)
     if issuer_name is not None:
         label = quote(issuer_name) + ':' + label
-        url_args['issuer'] = issuer_name
+        url_args['issuer'] = quote(issuer_name)
 
     if is_initial_count_present:
         url_args['counter'] = initial_count

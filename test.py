@@ -67,7 +67,7 @@ class HOTPExampleValuesFromTheRFC(unittest.TestCase):
         self.assertEqual(url.path, '/FooCorp%21:mark%40percival')
         self.assertEqual(dict(parse_qsl(url.query)),
                          {'secret': 'wrn3pqx5uqxqvnqr', 'counter': '0',
-                          'issuer': 'FooCorp!'})
+                          'issuer': 'FooCorp%21'})
 
         key = 'c7uxuqhgflpw7oruedmglbrk7u6242vb'
         hotp = pyotp.HOTP(key, digits=8, digest=hashlib.sha256)
@@ -83,14 +83,14 @@ class HOTPExampleValuesFromTheRFC(unittest.TestCase):
 
         hotp = pyotp.HOTP(key, digits=8)
         url = urlparse(
-            hotp.provisioning_uri('baco@peperina', issuer_name='FooCorp',
+            hotp.provisioning_uri('baco@peperina', issuer_name='Foo Corp',
                                   initial_count=10))
         self.assertEqual(url.scheme, 'otpauth')
         self.assertEqual(url.netloc, 'hotp')
-        self.assertEqual(url.path, '/FooCorp:baco%40peperina')
+        self.assertEqual(url.path, '/Foo%20Corp:baco%40peperina')
         self.assertEqual(dict(parse_qsl(url.query)),
                          {'secret': 'c7uxuqhgflpw7oruedmglbrk7u6242vb',
-                          'counter': '10', 'issuer': 'FooCorp',
+                          'counter': '10', 'issuer': 'Foo%20Corp',
                           'digits': '8'})
 
     def test_other_secret(self):
@@ -199,7 +199,7 @@ class TOTPExampleValuesFromTheRFC(unittest.TestCase):
         self.assertEqual(url.path, '/FooCorp%21:mark%40percival')
         self.assertEqual(dict(parse_qsl(url.query)),
                          {'secret': 'wrn3pqx5uqxqvnqr',
-                          'issuer': 'FooCorp!'})
+                          'issuer': 'FooCorp%21'})
 
         key = 'c7uxuqhgflpw7oruedmglbrk7u6242vb'
         totp = pyotp.TOTP(key, digits=8, interval=60, digest=hashlib.sha256)
