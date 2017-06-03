@@ -25,17 +25,25 @@ def build_uri(secret, name, initial_count=None, issuer_name=None,
     See also:
         https://github.com/google/google-authenticator/wiki/Key-Uri-Format
 
-    @param [String] the hotp/totp secret used to generate the URI
-    @param [String] name of the account
-    @param [Integer] initial_count starting counter value, defaults to None.
+    :param secret: the hotp/totp secret used to generate the URI
+    :type secret: str
+    :param name: name of the account
+    :type name: str
+    :param initial_count: starting counter value, defaults to None.
         If none, the OTP type will be assumed as TOTP.
-    @param [String] the name of the OTP issuer; this will be the
+    :type initial_count: int
+    :param issuer_name: the name of the OTP issuer; this will be the
         organization title of the OTP entry in Authenticator
-    @param [String] the algorithm used in the OTP generation.
-    @param [Integer] the length of the OTP generated code.
-    @param [Integer] the number of seconds the OTP generator is set to
+    :type issuer_name: str
+    :param algorithm: the algorithm used in the OTP generation.
+    :type algorithm: str
+    :param digits: the length of the OTP generated code.
+    :type digits: int
+    :param period: the number of seconds the OTP generator is set to
         expire every code.
-    @return [String] provisioning uri
+    :type period: int
+    :returns: provisioning uri
+    :rtype: str
     """
     # initial_count may be 0 as a valid param
     is_initial_count_present = (initial_count is not None)

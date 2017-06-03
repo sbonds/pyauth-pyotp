@@ -6,16 +6,17 @@ import hmac
 from .compat import str
 
 class OTP(object):
+    """
+    Base class for OTP handlers.
+    """
     def __init__(self, s, digits=6, digest=hashlib.sha1):
         """
-        @param [String] secret in the form of base32
-        @option options digits [Integer] (6)
-            Number of integers in the OTP
-            Google Authenticate only supports 6 currently
-        @option options digest [Callable] (hashlib.sha1)
-            Digest used in the HMAC
-            Google Authenticate only supports 'sha1' currently
-        @returns [OTP] OTP instantiation
+        :param s: secret in base32 format
+        :type s: str
+        :param digits: number of integers in the OTP. Some apps expect this to be 6 digits, others support more.
+        :type digits: int
+        :param digest: digest function to use in the HMAC (expected to be sha1)
+        :type digest: callable
         """
         self.digits = digits
         self.digest = digest
@@ -23,9 +24,9 @@ class OTP(object):
 
     def generate_otp(self, input):
         """
-        @param [Integer] input the number used seed the HMAC
-        Usually either the counter, or the computed integer
-        based on the Unix timestamp
+        :param input: the HMAC counter value to use as the OTP input.
+            Usually either the counter, or the computed integer based on the Unix timestamp
+        :type input: int
         """
         if input < 0:
             raise ValueError('input must be positive integer')
