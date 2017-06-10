@@ -1,3 +1,8 @@
+Changes for v2.2.6 (2017-06-10)
+===============================
+
+-  Fix tests wrt double-quoting in provisioning URIs
+
 Changes for v2.2.5 (2017-06-03)
 ===============================
 
