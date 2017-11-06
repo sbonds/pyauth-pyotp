@@ -9,7 +9,7 @@ setup(
     name="pyotp",
     version="2.2.6",
     url="https://github.com/pyotp/pyotp",
-    license="BSD License",
+    license="MIT License",
     author="PyOTP contributors",
     author_email="kislyuk@gmail.com",
     description="Python One Time Password Library",
@@ -22,7 +22,7 @@ setup(
     test_suite="test",
     classifiers=[
         "Intended Audience :: Developers",
-        "License :: OSI Approved :: BSD License",
+        "License :: OSI Approved :: MIT License",
         "Operating System :: MacOS :: MacOS X",
         "Operating System :: POSIX",
         "Programming Language :: Python",
