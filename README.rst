@@ -12,7 +12,25 @@ Authenticator <https://en.wikipedia.org/wiki/Google_Authenticator>`_, `Authy <ht
 compatible app. Users can set up auth tokens in their apps easily by using their phone camera to scan `otpauth://
 <https://github.com/google/google-authenticator/wiki/Key-Uri-Format>`_ QR codes provided by PyOTP.
 
-We recommend that implementers read the `OWASP Authentication Cheat Sheet <https://www.owasp.org/index.php/Authentication_Cheat_Sheet>`_ and `NIST SP 800-63-3: Digital Authentication Guideline <https://pages.nist.gov/800-63-3/>`_ for a high level overview of authentication best practices.
+Implementers should read and follow the `HOTP security requirements <https://tools.ietf.org/html/rfc4226#section-7>`_
+and `TOTP security considerations <https://tools.ietf.org/html/rfc6238#section-5>`_ sections of the relevant RFCs. At
+minimum, application implementers should follow this checklist:
+
+- Ensure transport confidentiality by using HTTPS
+- Ensure HOTP/TOTP secret confidentiality by storing secrets in a controlled access database
+- Deny replay attacks by rejecting one-time passwords that have been used by the client (this requires storing the most 
+  recently authenticated timestamp, OTP, or hash of the OTP in your database, and rejecting the OTP when a match is seen)
+- Throttle brute-force attacks against your application's login functionality
+- When implementing a "green field" application, consider supporting
+  `FIDO U2F <https://en.wikipedia.org/wiki/Universal_2nd_Factor>`_ in addition to HOTP/TOTP. U2F uses asymmetric
+  cryptography to avoid using a shared secret design, which strengthens your MFA solution against server-side compromise.
+  Hardware U2F also sequesters the client secret in a dedicated single-purpose device, which strengthens your clients
+  against client-side compromise.
+
+We also recommend that implementers read the
+`OWASP Authentication Cheat Sheet <https://www.owasp.org/index.php/Authentication_Cheat_Sheet>`_ and
+`NIST SP 800-63-3: Digital Authentication Guideline <https://pages.nist.gov/800-63-3/>`_ for a high level overview of
+authentication best practices.
 
 Quick overview of using One Time Passwords on your phone
 --------------------------------------------------------
