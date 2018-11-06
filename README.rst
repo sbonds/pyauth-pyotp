@@ -21,11 +21,12 @@ minimum, application implementers should follow this checklist:
 - Deny replay attacks by rejecting one-time passwords that have been used by the client (this requires storing the most 
   recently authenticated timestamp, OTP, or hash of the OTP in your database, and rejecting the OTP when a match is seen)
 - Throttle brute-force attacks against your application's login functionality
-- When implementing a "green field" application, consider supporting
-  `FIDO U2F <https://en.wikipedia.org/wiki/Universal_2nd_Factor>`_ in addition to HOTP/TOTP. U2F uses asymmetric
-  cryptography to avoid using a shared secret design, which strengthens your MFA solution against server-side compromise.
-  Hardware U2F also sequesters the client secret in a dedicated single-purpose device, which strengthens your clients
-  against client-side compromise.
+- When implementing a "greenfield" application, consider supporting
+  `FIDO U2F <https://en.wikipedia.org/wiki/Universal_2nd_Factor>`_/`WebAuthn <https://www.w3.org/TR/webauthn/>`_ in
+  addition to HOTP/TOTP. U2F uses asymmetric cryptography to avoid using a shared secret design, which strengthens your
+  MFA solution against server-side attacks. Hardware U2F also sequesters the client secret in a dedicated single-purpose
+  device, which strengthens your clients against client-side attacks. And by automating scoping of credentials to
+  relying party IDs (application origin/domain names), U2F adds protection against phishing attacks.
 
 We also recommend that implementers read the
 `OWASP Authentication Cheat Sheet <https://www.owasp.org/index.php/Authentication_Cheat_Sheet>`_ and
