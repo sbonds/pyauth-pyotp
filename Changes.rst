@@ -1,3 +1,13 @@
+Changes for v2.2.7 (2018-11-05)
+===============================
+
+-  Have random_base32() use ‘secrets’ as rand source (#66)
+
+-  Documentation: Add security considerations, minimal security
+   checklist, other improvements
+
+-  Update setup.py to reference correct license
+
 Changes for v2.2.6 (2017-06-10)
 ===============================
 
