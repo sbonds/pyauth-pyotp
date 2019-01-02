@@ -26,7 +26,8 @@ minimum, application implementers should follow this checklist:
   addition to HOTP/TOTP. U2F uses asymmetric cryptography to avoid using a shared secret design, which strengthens your
   MFA solution against server-side attacks. Hardware U2F also sequesters the client secret in a dedicated single-purpose
   device, which strengthens your clients against client-side attacks. And by automating scoping of credentials to
-  relying party IDs (application origin/domain names), U2F adds protection against phishing attacks.
+  relying party IDs (application origin/domain names), U2F adds protection against phishing attacks. One implementation of
+  FIDO U2F/WebAuthn is PyOTP's sister project, `PyWARP <https://github.com/pyauth/pywarp>`_.
 
 We also recommend that implementers read the
 `OWASP Authentication Cheat Sheet <https://www.owasp.org/index.php/Authentication_Cheat_Sheet>`_ and
@@ -124,6 +125,10 @@ Links
 * `OTPHP <https://github.com/lelag/otphp>`_ - PHP port of ROTP by `Le Lag <https://github.com/lelag>`_
 * `OWASP Authentication Cheat Sheet <https://www.owasp.org/index.php/Authentication_Cheat_Sheet>`_
 * `NIST SP 800-63-3: Digital Authentication Guideline <https://pages.nist.gov/800-63-3/>`_
+
+For new applications:
+* `WebAuthn <https://www.w3.org/TR/webauthn/>`_
+* `PyWARP <https://github.com/pyauth/pywarp>`_
 
 .. image:: https://img.shields.io/travis/pyotp/pyotp.svg
         :target: https://travis-ci.org/pyotp/pyotp
