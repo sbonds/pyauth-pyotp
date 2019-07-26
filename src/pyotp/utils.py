@@ -1,6 +1,5 @@
 from __future__ import absolute_import, division, print_function, unicode_literals
 
-import sys
 import unicodedata
 try:
     from itertools import izip_longest
@@ -107,7 +106,4 @@ def strings_equal(s1, s2):
     """
     s1 = unicodedata.normalize('NFKC', s1)
     s2 = unicodedata.normalize('NFKC', s2)
-    if sys.version.startswith('3'):
-        return compare_digest(s1.encode(), s2.encode())
-    else:
-        return compare_digest(s1, s2)
+    return compare_digest(s1.encode(), s2.encode())
