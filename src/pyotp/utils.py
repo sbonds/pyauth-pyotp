@@ -106,4 +106,4 @@ def strings_equal(s1, s2):
     """
     s1 = unicodedata.normalize('NFKC', s1)
     s2 = unicodedata.normalize('NFKC', s2)
-    return compare_digest(s1.encode(), s2.encode())
+    return compare_digest(s1.encode("utf-8"), s2.encode("utf-8"))
