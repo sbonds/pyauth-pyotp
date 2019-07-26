@@ -1,3 +1,8 @@
+Changes for v2.3.0 (2019-07-26)
+===============================
+
+-  Fix comparison behavior on Python 2.7
+
 Changes for v2.2.8 (2019-07-26)
 ===============================
 
