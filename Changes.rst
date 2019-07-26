@@ -1,3 +1,10 @@
+Changes for v2.2.8 (2019-07-26)
+===============================
+
+-  Fix comparison of unicode chars (#78)
+
+-  Minor documentation and test fixes
+
 Changes for v2.2.7 (2018-11-05)
 ===============================
 
