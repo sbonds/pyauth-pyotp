@@ -131,8 +131,8 @@ For new applications:
 * `WebAuthn <https://www.w3.org/TR/webauthn/>`_
 * `PyWARP <https://github.com/pyauth/pywarp>`_
 
-.. image:: https://img.shields.io/travis/pyotp/pyotp.svg
-        :target: https://travis-ci.org/pyotp/pyotp
+.. image:: https://github.com/pyauth/pyotp/workflows/.github/workflows/pythonpackage.yml/badge.svg
+        :target: https://github.com/pyauth/pyotp/actions
 .. image:: https://img.shields.io/codecov/c/github/pyotp/pyotp/master.svg
         :target: https://codecov.io/github/pyotp/pyotp?branch=master
 .. image:: https://img.shields.io/pypi/v/pyotp.svg
