@@ -76,11 +76,15 @@ Counter-based OTPs
     hotp.verify('316439', 1401) # => True
     hotp.verify('316439', 1402) # => False
 
-Generating a base32 Secret Key
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-::
+Generating a Secret Key
+~~~~~~~~~~~~~~~~~~~~~~~
+A helper function is provided to generate a 16 character base32 secret, compatible with Google Authenticator and other OTP apps::
 
-    pyotp.random_base32() # returns a 16 character base32 secret. Compatible with Google Authenticator and other OTP apps
+    pyotp.random_base32()
+
+Some applications want the secret key to be formatted as a hex-encoded string::
+
+    pyotp.random_hex()  # returns a 32-character hex-encoded secret
 
 Google Authenticator Compatible
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
