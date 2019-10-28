@@ -9,6 +9,14 @@ class HOTP(OTP):
     """
     Handler for HMAC-based OTP counters.
     """
+    def __init__(self, *args, **kwargs):
+        """
+        :param initial_count: starting HMAC counter value, defaults to 0
+        :type initial_count: int
+        """
+        self.initial_count = kwargs.pop('initial_count', 0)
+        super(HOTP, self).__init__(*args, **kwargs)
+
     def at(self, count):
         """
         Generates the OTP for the given count.
@@ -31,7 +39,7 @@ class HOTP(OTP):
         """
         return utils.strings_equal(str(otp), str(self.at(counter)))
 
-    def provisioning_uri(self, name, initial_count=0, issuer_name=None):
+    def provisioning_uri(self, name=None, initial_count=None, issuer_name=None):
         """
         Returns the provisioning URI for the OTP.  This can then be
         encoded in a QR Code and used to provision an OTP app like
@@ -51,9 +59,9 @@ class HOTP(OTP):
         """
         return utils.build_uri(
             self.secret,
-            name,
-            initial_count=initial_count,
-            issuer_name=issuer_name,
+            name=name if name else self.name,
+            initial_count=initial_count if initial_count else self.initial_count,
+            issuer=issuer_name if issuer_name else self.issuer,
             algorithm=self.digest().name,
             digits=self.digits
         )
