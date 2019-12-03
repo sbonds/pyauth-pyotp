@@ -25,6 +25,11 @@ class TOTP(OTP):
         """
         Accepts either a Unix timestamp integer or a datetime object.
 
+        To get the time until the next timecode change (seconds until the current OTP expires), use this instead::
+
+            totp = pyotp.TOTP(...)
+            time_remaining = totp.interval - datetime.datetime.now().timestamp() % totp.interval
+
         :param for_time: the time to generate an OTP for
         :type for_time: int or datetime.datetime
         :param counter_offset: the amount of ticks to add to the time counter
