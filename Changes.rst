@@ -1,3 +1,15 @@
+Changes for v2.4.0 (2020-07-29)
+===============================
+
+-  Fix data type for at(for_time) (#85)
+
+-  Add support for parsing provisioning URIs (#84)
+
+-  Raise error when trying to generate secret that is too short (The
+   secret must be at least 128 bits)
+
+-  Add random_hex function (#82)
+
 Changes for v2.3.0 (2019-07-26)
 ===============================
 
