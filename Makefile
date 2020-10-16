@@ -19,7 +19,7 @@ init_docs: test_deps
 	cd docs; sphinx-quickstart
 
 docs: test_deps
-	$(MAKE) -C docs html
+	sphinx-build docs docs/html
 
 install: clean
 	python ./setup.py bdist_wheel
