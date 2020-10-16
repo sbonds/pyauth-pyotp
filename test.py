@@ -370,6 +370,7 @@ class ParseUriTest(unittest.TestCase):
             pyotp.parse_uri('otpauth://totp?algorithm=aes')
         self.assertEqual('Invalid value for algorithm, must be SHA1, SHA256 or SHA512', str(cm.exception))
 
+    @unittest.skipIf(sys.version_info < (3, 6), "Skipping test that requires deterministic dict key enumeration")
     def test_algorithms(self):
         otp = pyotp.parse_uri('otpauth://totp?algorithm=SHA1&secret=GEZDGNBV&algorithm=SHA1')
         self.assertEqual(hashlib.sha1, otp.digest)
