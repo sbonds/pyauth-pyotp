@@ -1,3 +1,11 @@
+Changes for v2.4.1 (2020-10-16)
+===============================
+
+-  parse_uri: Fix handling of period, counter (#108)
+
+-  Add support for timezone aware datetime as argument to
+   ``TOTP.timecode()`` (#107)
+
 Changes for v2.4.0 (2020-07-29)
 ===============================
 
