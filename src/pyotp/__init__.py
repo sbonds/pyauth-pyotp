@@ -84,9 +84,9 @@ def parse_uri(uri: str) -> OTP:
                 raise ValueError('Digits may only be 6 or 8')
             otp_data['digits'] = digits
         elif key == 'period':
-            otp_data['interval'] = value
+            otp_data['interval'] = int(value)
         elif key == 'counter':
-            otp_data['initial_count'] = value
+            otp_data['initial_count'] = int(value)
         else:
             raise ValueError('{} is not a valid parameter'.format(key))
 

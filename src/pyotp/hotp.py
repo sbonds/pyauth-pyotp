@@ -22,7 +22,7 @@ class HOTP(OTP):
         :param count: the OTP HMAC counter
         :returns: OTP
         """
-        return self.generate_otp(count)
+        return self.generate_otp(self.initial_count + count)
 
     def verify(self, otp: str, counter: int) -> bool:
         """

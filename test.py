@@ -339,6 +339,7 @@ class ValidWindowTest(unittest.TestCase):
         self.assertTrue(totp.verify("681610", 200, 1))
         self.assertFalse(totp.verify("195979", 200, 1))
 
+
 class ParseUriTest(unittest.TestCase):
     def test_invalids(self):
         with self.assertRaises(ValueError) as cm:
@@ -370,14 +371,46 @@ class ParseUriTest(unittest.TestCase):
         self.assertEqual('Invalid value for algorithm, must be SHA1, SHA256 or SHA512', str(cm.exception))
 
     def test_algorithms(self):
-        otp = pyotp.parse_uri('otpauth://totp?algorithm=SHA1&secret=123456&algorithm=SHA1')
+        otp = pyotp.parse_uri('otpauth://totp?algorithm=SHA1&secret=GEZDGNBV&algorithm=SHA1')
         self.assertEqual(hashlib.sha1, otp.digest)
+        self.assertEqual(otp.at(0), '734055')
+        self.assertEqual(otp.at(30), '662488')
+        self.assertEqual(otp.at(60), '289363')
+        self.assertEqual(otp.provisioning_uri(), 'otpauth://totp/Secret?secret=GEZDGNBV')
+        self.assertEqual(otp.provisioning_uri(name='n', issuer_name='i'), 'otpauth://totp/i:n?secret=GEZDGNBV&issuer=i')
 
-        otp = pyotp.parse_uri('otpauth://totp?algorithm=SHA1&secret=123456&algorithm=SHA256')
+        otp = pyotp.parse_uri('otpauth://totp?algorithm=SHA1&secret=GEZDGNBV&algorithm=SHA1&period=60')
+        self.assertEqual(hashlib.sha1, otp.digest)
+        self.assertEqual(otp.at(30), '734055')
+        self.assertEqual(otp.at(60), '662488')
+        self.assertEqual(otp.provisioning_uri(name='n', issuer_name='i'),
+                         'otpauth://totp/i:n?secret=GEZDGNBV&issuer=i&period=60')
+
+        otp = pyotp.parse_uri('otpauth://hotp?algorithm=SHA1&secret=GEZDGNBV&algorithm=SHA1')
+        self.assertEqual(hashlib.sha1, otp.digest)
+        self.assertEqual(otp.at(0), '734055')
+        self.assertEqual(otp.at(1), '662488')
+        self.assertEqual(otp.at(2), '289363')
+        self.assertEqual(otp.provisioning_uri(name='n', issuer_name='i'),
+                         'otpauth://hotp/i:n?secret=GEZDGNBV&issuer=i&counter=0')
+
+        otp = pyotp.parse_uri('otpauth://hotp?algorithm=SHA1&secret=GEZDGNBV&algorithm=SHA1&counter=1')
+        self.assertEqual(hashlib.sha1, otp.digest)
+        self.assertEqual(otp.at(0), '662488')
+        self.assertEqual(otp.at(1), '289363')
+        self.assertEqual(otp.provisioning_uri(name='n', issuer_name='i'),
+                         'otpauth://hotp/i:n?secret=GEZDGNBV&issuer=i&counter=1')
+
+        otp = pyotp.parse_uri('otpauth://totp?algorithm=SHA1&secret=GEZDGNBV&algorithm=SHA256')
         self.assertEqual(hashlib.sha256, otp.digest)
+        self.assertEqual(otp.at(0), '918961')
+        self.assertEqual(otp.at(9000), '934470')
 
-        otp = pyotp.parse_uri('otpauth://totp?algorithm=SHA1&secret=123456&algorithm=SHA512')
+        otp = pyotp.parse_uri('otpauth://totp?algorithm=SHA1&secret=GEZDGNBV&algorithm=SHA512')
         self.assertEqual(hashlib.sha512, otp.digest)
+        self.assertEqual(otp.at(0), '816660')
+        self.assertEqual(otp.at(9000), '524153')
+
 
 class Timecop(object):
     """
