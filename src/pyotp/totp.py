@@ -88,7 +88,6 @@ class TOTP(OTP):
 
         """
         if for_time.tzinfo:
-            i = calendar.timegm(for_time.utctimetuple())
+            return int(calendar.timegm(for_time.utctimetuple()) / self.interval)
         else:
-            i = time.mktime(for_time.timetuple())
-        return int(i / self.interval)
+            return int(time.mktime(for_time.timetuple()) / self.interval)
