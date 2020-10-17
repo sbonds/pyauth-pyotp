@@ -130,7 +130,7 @@ Links
 ~~~~~
 
 * `Project home page (GitHub) <https://github.com/pyauth/pyotp>`_
-* `Documentation (Read the Docs) <https://pyotp.readthedocs.io/en/latest/>`_
+* `Documentation <https://pyauth.github.io/pyotp/>`_
 * `Package distribution (PyPI) <https://pypi.python.org/pypi/pyotp>`_
 * `Change log <https://github.com/pyauth/pyotp/blob/master/Changes.rst>`_
 * `RFC 4226: HOTP: An HMAC-Based One-Time Password <https://tools.ietf.org/html/rfc4226>`_
