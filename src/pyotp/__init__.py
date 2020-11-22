@@ -11,10 +11,10 @@ from .totp import TOTP as TOTP
 
 
 def random_base32(
-        length: int = 16,
+        length: int = 26,
         chars: Sequence[str] = list('ABCDEFGHIJKLMNOPQRSTUVWXYZ234567')) -> str:
-    if length < 16:
-        raise Exception("Secrets should be at least 128 bits")
+    if length < 26:
+        raise ValueError("Secrets should be at least 128 bits")
 
     return ''.join(
         random.choice(chars)
@@ -26,7 +26,7 @@ def random_hex(
         length: int = 32,
         chars: Sequence[str] = list('ABCDEF0123456789')) -> str:
     if length < 32:
-        raise Exception("Secrets should be at least 128 bits")
+        raise ValueError("Secrets should be at least 128 bits")
     return random_base32(length=length, chars=chars)
 
 

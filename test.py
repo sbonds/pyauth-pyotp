@@ -291,14 +291,14 @@ class TOTPExampleValuesFromTheRFC(unittest.TestCase):
         )
 
     def test_random_key_generation(self):
-        self.assertEqual(len(pyotp.random_base32()), 16)
-        self.assertEqual(len(pyotp.random_base32(length=20)), 20)
+        self.assertEqual(len(pyotp.random_base32()), 26)
+        self.assertEqual(len(pyotp.random_base32(length=32)), 32)
         self.assertEqual(len(pyotp.random_hex()), 32)
         self.assertEqual(len(pyotp.random_hex(length=64)), 64)
-        with self.assertRaises(Exception):
-            pyotp.random_base32(length=15)
-        with self.assertRaises(Exception):
-            pyotp.random_hex(length=24)
+        with self.assertRaises(ValueError):
+            pyotp.random_base32(length=25)
+        with self.assertRaises(ValueError):
+            pyotp.random_hex(length=31)
 
 
 class CompareDigestTest(unittest.TestCase):
