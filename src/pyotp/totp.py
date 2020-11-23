@@ -1,8 +1,8 @@
-from typing import Any, Union, Optional
-
 import calendar
 import datetime
+import hashlib
 import time
+from typing import Any, Union, Optional
 
 from . import utils
 from .otp import OTP
@@ -12,13 +12,18 @@ class TOTP(OTP):
     """
     Handler for time-based OTP counters.
     """
-    def __init__(self, *args: Any, interval: int = 30, **kwargs: Any) -> None:
+    def __init__(self, s: str, digits: int = 6, digest: Any = hashlib.sha1, name: Optional[str] = None,
+                 issuer: Optional[str] = None, interval: int = 30) -> None:
         """
-        :param interval: the time interval in seconds
-            for OTP. This defaults to 30.
+        :param s: secret in base32 format
+        :param interval: the time interval in seconds for OTP. This defaults to 30.
+        :param digits: number of integers in the OTP. Some apps expect this to be 6 digits, others support more.
+        :param digest: digest function to use in the HMAC (expected to be sha1)
+        :param name: account name
+        :param issuer: issuer
         """
         self.interval = interval
-        super(TOTP, self).__init__(*args, **kwargs)
+        super().__init__(s=s, digits=digits, digest=digest, name=name, issuer=issuer)
 
     def at(self, for_time: Union[int, datetime.datetime], counter_offset: int = 0) -> str:
         """

@@ -1,3 +1,4 @@
+import hashlib
 from typing import Any, Optional
 
 from . import utils
@@ -8,12 +9,18 @@ class HOTP(OTP):
     """
     Handler for HMAC-based OTP counters.
     """
-    def __init__(self, *args: Any, initial_count: int = 0, **kwargs: Any) -> None:
+    def __init__(self, s: str, digits: int = 6, digest: Any = hashlib.sha1, name: Optional[str] = None,
+                 issuer: Optional[str] = None, initial_count: int = 0) -> None:
         """
+        :param s: secret in base32 format
         :param initial_count: starting HMAC counter value, defaults to 0
+        :param digits: number of integers in the OTP. Some apps expect this to be 6 digits, others support more.
+        :param digest: digest function to use in the HMAC (expected to be sha1)
+        :param name: account name
+        :param issuer: issuer
         """
         self.initial_count = initial_count
-        super(HOTP, self).__init__(*args, **kwargs)
+        super().__init__(s=s, digits=digits, digest=digest, name=name, issuer=issuer)
 
     def at(self, count: int) -> str:
         """

@@ -1,29 +1,15 @@
-from typing import Any, Optional
-
 import base64
 import hashlib
 import hmac
+from typing import Any, Optional
 
 
 class OTP(object):
     """
     Base class for OTP handlers.
     """
-    def __init__(
-        self,
-        s: str,
-        digits: int = 6,
-        digest: Any = hashlib.sha1,
-        name: Optional[str] = None,
-        issuer: Optional[str] = None
-    ) -> None:
-        """
-        :param s: secret in base32 format
-        :param digits: number of integers in the OTP. Some apps expect this to be 6 digits, others support more.
-        :param digest: digest function to use in the HMAC (expected to be sha1)
-        :param name: account name
-        :param issuer: issuer
-        """
+    def __init__(self, s: str, digits: int = 6, digest: Any = hashlib.sha1, name: Optional[str] = None,
+                 issuer: Optional[str] = None) -> None:
         self.digits = digits
         self.digest = digest
         self.secret = s

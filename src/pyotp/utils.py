@@ -1,18 +1,11 @@
-from typing import Dict, Optional, Union
-
 import unicodedata
 from hmac import compare_digest
+from typing import Dict, Optional, Union
 from urllib.parse import quote, urlencode
 
 
-def build_uri(
-        secret: str,
-        name: str,
-        initial_count: Optional[int] = None,
-        issuer: Optional[str] = None,
-        algorithm: Optional[str] = None,
-        digits: Optional[int] = None,
-        period: Optional[int] = None) -> str:
+def build_uri(secret: str, name: str, initial_count: Optional[int] = None, issuer: Optional[str] = None,
+              algorithm: Optional[str] = None, digits: Optional[int] = None, period: Optional[int] = None) -> str:
     """
     Returns the provisioning URI for the OTP; works for either TOTP or HOTP.
 
