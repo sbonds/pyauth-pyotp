@@ -360,7 +360,7 @@ class ParseUriTest(unittest.TestCase):
 
         with self.assertRaises(ValueError) as cm:
             pyotp.parse_uri('otpauth://totp?digits=-1')
-        self.assertEqual('Digits may only be 6 or 8', str(cm.exception))
+        self.assertEqual('Digits may only be 6, 7, or 8', str(cm.exception))
 
         with self.assertRaises(ValueError) as cm:
             pyotp.parse_uri('otpauth://totp/SomeIssuer:?issuer=AnotherIssuer')
