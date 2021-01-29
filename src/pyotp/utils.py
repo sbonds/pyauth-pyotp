@@ -1,11 +1,12 @@
 import unicodedata
 from hmac import compare_digest
 from typing import Dict, Optional, Union
-from urllib.parse import quote, urlencode
+from urllib.parse import quote, urlencode, urlparse
 
 
 def build_uri(secret: str, name: str, initial_count: Optional[int] = None, issuer: Optional[str] = None,
-              algorithm: Optional[str] = None, digits: Optional[int] = None, period: Optional[int] = None) -> str:
+              algorithm: Optional[str] = None, digits: Optional[int] = None, period: Optional[int] = None,
+              image: Optional[str] = None) -> str:
     """
     Returns the provisioning URI for the OTP; works for either TOTP or HOTP.
 
@@ -27,6 +28,7 @@ def build_uri(secret: str, name: str, initial_count: Optional[int] = None, issue
     :param digits: the length of the OTP generated code.
     :param period: the number of seconds the OTP generator is set to
         expire every code.
+    :param image: optional logo image url
     :returns: provisioning uri
     """
     # initial_count may be 0 as a valid param
@@ -55,6 +57,11 @@ def build_uri(secret: str, name: str, initial_count: Optional[int] = None, issue
         url_args['digits'] = digits
     if is_period_set:
         url_args['period'] = period
+    if image:
+        image_uri = urlparse(image)
+        if image_uri.scheme != 'https' or not image_uri.netloc or not image_uri.path:
+            raise ValueError('{} is not a valid url'.format(image_uri))
+        url_args['image'] = image
 
     uri = base_uri.format(otp_type, label, urlencode(url_args).replace("+", "%20"))
     return uri
