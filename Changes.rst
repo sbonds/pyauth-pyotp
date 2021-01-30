@@ -1,3 +1,8 @@
+Changes for v2.5.1 (2021-01-29)
+===============================
+
+-  parse_uri accepts and ignores optional image parameter (#114)
+
 Changes for v2.5.0 (2021-01-29)
 ===============================
 
