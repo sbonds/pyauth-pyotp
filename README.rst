@@ -100,7 +100,7 @@ ability to generate provisioning URIs for use with the QR Code scanner built int
 
     >>> 'otpauth://hotp/Secure%20App:alice%40google.com?secret=JBSWY3DPEHPK3PXP&issuer=Secure%20App&counter=0'
 
-This URL can then be rendered as a QR Code (for example, using https://github.com/neocotic/qrious) which can then be scanned
+This URL can then be rendered as a QR Code (for example, using https://github.com/soldair/node-qrcode) which can then be scanned
 and added to the users list of OTP credentials.
 
 Parsing these URLs is also supported::
