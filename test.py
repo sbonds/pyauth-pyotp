@@ -7,7 +7,7 @@ from warnings import warn
 from urllib.parse import urlparse, parse_qsl
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
-import pyotp
+import pyotp  # noqa
 
 
 class HOTPExampleValuesFromTheRFC(unittest.TestCase):
@@ -296,14 +296,14 @@ class TOTPExampleValuesFromTheRFC(unittest.TestCase):
         )
 
     def test_random_key_generation(self):
-        self.assertEqual(len(pyotp.random_base32()), 26)
-        self.assertEqual(len(pyotp.random_base32(length=32)), 32)
-        self.assertEqual(len(pyotp.random_hex()), 32)
-        self.assertEqual(len(pyotp.random_hex(length=64)), 64)
+        self.assertEqual(len(pyotp.random_base32()), 32)
+        self.assertEqual(len(pyotp.random_base32(length=34)), 34)
+        self.assertEqual(len(pyotp.random_hex()), 40)
+        self.assertEqual(len(pyotp.random_hex(length=42)), 42)
         with self.assertRaises(ValueError):
-            pyotp.random_base32(length=25)
+            pyotp.random_base32(length=31)
         with self.assertRaises(ValueError):
-            pyotp.random_hex(length=31)
+            pyotp.random_hex(length=39)
 
 
 class CompareDigestTest(unittest.TestCase):
@@ -417,8 +417,10 @@ class ParseUriTest(unittest.TestCase):
         self.assertEqual(otp.at(0), '816660')
         self.assertEqual(otp.at(9000), '524153')
 
-        self.assertEqual(otp.provisioning_uri(name='n', issuer_name='i', image='https://test.net/test.png'),
-                        'otpauth://totp/i:n?secret=GEZDGNBV&issuer=i&algorithm=SHA512&image=https%3A%2F%2Ftest.net%2Ftest.png')
+        self.assertEqual(
+            otp.provisioning_uri(name='n', issuer_name='i', image='https://test.net/test.png'),
+            'otpauth://totp/i:n?secret=GEZDGNBV&issuer=i&algorithm=SHA512&image=https%3A%2F%2Ftest.net%2Ftest.png'
+        )
         with self.assertRaises(ValueError):
             otp.provisioning_uri(name='n', issuer_name='i', image='nourl')
 

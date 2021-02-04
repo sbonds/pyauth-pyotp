@@ -9,9 +9,12 @@ from .otp import OTP as OTP
 from .totp import TOTP as TOTP
 
 
-def random_base32(length: int = 26, chars: Sequence[str] = list('ABCDEFGHIJKLMNOPQRSTUVWXYZ234567')) -> str:
-    if length < 26:
-        raise ValueError("Secrets should be at least 128 bits")
+def random_base32(length: int = 32, chars: Sequence[str] = list('ABCDEFGHIJKLMNOPQRSTUVWXYZ234567')) -> str:
+    # Note: the otpauth scheme DOES NOT use base32 padding for secret lengths not divisible by 8.
+    # Some third-party tools have bugs when dealing with such secrets.
+    # We might consider warning the user when generating a secret of length not divisible by 8.
+    if length < 32:
+        raise ValueError("Secrets should be at least 160 bits")
 
     return ''.join(
         random.choice(chars)
@@ -19,9 +22,9 @@ def random_base32(length: int = 26, chars: Sequence[str] = list('ABCDEFGHIJKLMNO
     )
 
 
-def random_hex(length: int = 32, chars: Sequence[str] = list('ABCDEF0123456789')) -> str:
-    if length < 32:
-        raise ValueError("Secrets should be at least 128 bits")
+def random_hex(length: int = 40, chars: Sequence[str] = list('ABCDEF0123456789')) -> str:
+    if length < 40:
+        raise ValueError("Secrets should be at least 160 bits")
     return random_base32(length=length, chars=chars)
 
 
