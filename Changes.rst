@@ -1,3 +1,12 @@
+Changes for v2.6.0 (2021-02-04)
+===============================
+
+-  Raise default and minimum base32 secret length to 32, and hex secret
+   length to 40 (160 bits as recommended by the RFC) (#115).
+
+-  Fix issue where provisioning_uri would return invalid results after
+   calling verify() (#115).
+
 Changes for v2.5.1 (2021-01-29)
 ===============================
 
