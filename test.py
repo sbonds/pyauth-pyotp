@@ -118,6 +118,11 @@ class HOTPExampleValuesFromTheRFC(unittest.TestCase):
             ).provisioning_uri()
         )
 
+        code = pyotp.totp.TOTP("S46SQCPPTCNPROMHWYBDCTBZXV")
+        self.assertEqual(code.provisioning_uri(), "otpauth://totp/Secret?secret=S46SQCPPTCNPROMHWYBDCTBZXV")
+        code.verify("123456")
+        self.assertEqual(code.provisioning_uri(), "otpauth://totp/Secret?secret=S46SQCPPTCNPROMHWYBDCTBZXV")
+
     def test_other_secret(self):
         hotp = pyotp.HOTP(
             'N3OVNIBRERIO5OHGVCMDGS4V4RJ3AUZOUN34J6FRM4P6JIFCG3ZA')
