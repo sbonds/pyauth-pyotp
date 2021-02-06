@@ -78,13 +78,13 @@ Counter-based OTPs
 
 Generating a Secret Key
 ~~~~~~~~~~~~~~~~~~~~~~~
-A helper function is provided to generate a 16 character base32 secret, compatible with Google Authenticator and other OTP apps::
+A helper function is provided to generate a 32-character base32 secret, compatible with Google Authenticator and other OTP apps::
 
     pyotp.random_base32()
 
 Some applications want the secret key to be formatted as a hex-encoded string::
 
-    pyotp.random_hex()  # returns a 32-character hex-encoded secret
+    pyotp.random_hex()  # returns a 40-character hex-encoded secret
 
 Google Authenticator Compatible
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
